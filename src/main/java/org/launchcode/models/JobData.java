@@ -19,6 +19,16 @@ public class JobData {
 
     private static final String DATA_FILE = "job_data.csv";
     private static boolean isDataLoaded = false;
+    private static int numberOfJobs =0;
+
+    public JobData (int numberOfJobs){
+        this.numberOfJobs = numberOfJobs;
+    }
+
+    public int getNumberOfJobs (int numberOfJobs) {
+        return numberOfJobs;
+    }
+
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
@@ -28,6 +38,8 @@ public class JobData {
      *
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
+     *
+     * this method is for search by all
      */
     public static ArrayList<String> findAll(String field) {
 
@@ -35,7 +47,6 @@ public class JobData {
         loadData();
 
         ArrayList<String> values = new ArrayList<>();
-
         for (HashMap<String, String> row : allJobs) {
             String aValue = row.get(field);
 
@@ -81,8 +92,11 @@ public class JobData {
 
             String aValue = row.get(column);
 
+
             if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
+                numberOfJobs ++;
+
             }
         }
 
@@ -94,6 +108,8 @@ public class JobData {
      *
      * @param value The search term to look for
      * @return      List of all jobs with at least one field containing the value
+     *
+     * this method is for search by keyword
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
@@ -107,8 +123,10 @@ public class JobData {
             for (String key : row.keySet()) {
                 String aValue = row.get(key);
 
+
                 if (aValue.toLowerCase().contains(value.toLowerCase())) {
                     jobs.add(row);
+
 
                     // Finding one field in a job that matches is sufficient
                     break;

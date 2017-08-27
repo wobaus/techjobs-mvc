@@ -14,6 +14,8 @@
         <h2>Search by:</h2>
 
         <p>
+            <!--role of span tag here, check is default select on display-->
+            <!--span tag is not display after search??-->
             <span th:each="column : ${columns}">
                 <input
                         type="radio"
@@ -37,6 +39,27 @@
     <hr />
 
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
+
+
+
+<h2 th:text="${numberOfJobs+ ' Result(s)'}"></h2>
+
+    <div align="center" th:each="job : ${jobs}">
+
+        <table class="job-listing">
+            <tbody>
+            <tr th:each="eachjob : ${job}" >
+                <td th:text="${eachjob.getKey()}"></td>
+                <td th:text="${eachjob.getValue()}"></td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
 
 </div>
 
