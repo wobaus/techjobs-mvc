@@ -24,31 +24,23 @@ public class SearchController {
     }
 
     // TODO #1 - Create handler to process search request and display results
+//move arraylist and model out of if and else statement
 
     @RequestMapping(value = "results")
     public String results(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
+        ArrayList<HashMap<String, String>> jobs = JobData.findByValue(searchTerm);
+        model.addAttribute("columns", ListController.columnChoices);
+
+        model.addAttribute("jobs", jobs);
+        // how to pass number of search result?
+        model.addAttribute("numberOfJobs",jobs.size());
 
 
         if (searchType.equals("all")) {
-            ArrayList<HashMap<String, String>> jobs = JobData.findByValue(searchTerm);
-            model.addAttribute("columns", ListController.columnChoices);
-
-            model.addAttribute("jobs", jobs);
-            // how to pass number of search result?
-            model.addAttribute("numberOfJobs",jobs.size());
-
             return "search";
 
 
         } else {
-            ArrayList<HashMap<String, String>> jobs = JobData.findByColumnAndValue(searchType, searchTerm);
-
-            model.addAttribute("columns", ListController.columnChoices);
-
-            model.addAttribute("jobs", jobs);
-            // how to pass number of search result?
-            model.addAttribute("numberOfJobs", jobs.size() );
-
             return "search";
 
 
